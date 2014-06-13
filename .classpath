@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="source/com"/>
-	<classpathentry kind="src" path="CharacterBuilder"/>
-	<classpathentry kind="src" path="scource/com/chatroom"/>
+	<classpathentry kind="src" path="characterBuilder"/>
 	<classpathentry kind="src" path="source/window"/>
+	<classpathentry kind="src" path="source/characterBuilder"/>
 	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
 	<classpathentry kind="lib" path="resource"/>
 	<classpathentry kind="lib" path="saves"/>
