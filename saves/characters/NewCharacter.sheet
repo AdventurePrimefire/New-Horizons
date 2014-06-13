@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CharacterSheet name="New Character">
+    <Stats Car="8" Con="10" Dex="13" Intl="10" Str="14" Wis="11"/>
+</CharacterSheet>
