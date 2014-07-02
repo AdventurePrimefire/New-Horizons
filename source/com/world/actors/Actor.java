@@ -37,7 +37,7 @@ public class Actor {
      */
     public Actor() {
         color = Color.BLUE;
-        direction = Location.NORTH;
+        direction = Location.FACING.NORTH.getValue();
         grid = null;
         location = null;
     }
@@ -74,22 +74,19 @@ public class Actor {
      * Sets the current direction of this actor.
      *
      * @param newDirection
-     *            the new direction. The direction of this actor is set to the
-     *            angle between 0 and 359 degrees that is equivalent to
-     *            <code>newDirection</code>.
+     *            the new direction. The direction of this actor is set to the angle between 0 and 359 degrees that is equivalent to <code>newDirection</code>.
      */
     public void setDirection(int newDirection) {
-        direction = newDirection % Location.FULL_CIRCLE;
+        direction = newDirection % Location.TURNANGLE.FULLCIRCLE.getValue();
         if (direction < 0) {
-            direction += Location.FULL_CIRCLE;
+            direction += Location.TURNANGLE.FULLCIRCLE.getValue();
         }
     }
 
     /**
      * Gets the grid in which this actor is located.
      *
-     * @return the grid of this actor, or <code>null</code> if this actor is not
-     *         contained in a grid
+     * @return the grid of this actor, or <code>null</code> if this actor is not contained in a grid
      */
     public Grid<Actor> getGrid() {
         return grid;
@@ -98,18 +95,15 @@ public class Actor {
     /**
      * Gets the location of this actor.
      *
-     * @return the location of this actor, or <code>null</code> if this actor is
-     *         not contained in a grid
+     * @return the location of this actor, or <code>null</code> if this actor is not contained in a grid
      */
     public Location getLocation() {
         return location;
     }
 
     /**
-     * Puts this actor into a grid. If there is another actor at the given
-     * location, it is removed. <br />
-     * Precondition: (1) This actor is not contained in a grid (2)
-     * <code>loc</code> is valid in <code>gr</code>
+     * Puts this actor into a grid. If there is another actor at the given location, it is removed. <br />
+     * Precondition: (1) This actor is not contained in a grid (2) <code>loc</code> is valid in <code>gr</code>
      *
      * @param gr
      *            the grid into which this actor should be placed
@@ -148,10 +142,8 @@ public class Actor {
     }
 
     /**
-     * Moves this actor to a new location. If there is another actor at the
-     * given location, it is removed. <br />
-     * Precondition: (1) This actor is contained in a grid (2)
-     * <code>newLocation</code> is valid in the grid of this actor
+     * Moves this actor to a new location. If there is another actor at the given location, it is removed. <br />
+     * Precondition: (1) This actor is contained in a grid (2) <code>newLocation</code> is valid in the grid of this actor
      *
      * @param newLocation
      *            the new location
@@ -180,11 +172,10 @@ public class Actor {
     }
 
     /**
-     * Reverses the direction of this actor. Override this method in subclasses
-     * of <code>Actor</code> to define types of actors with different behavior
+     * Reverses the direction of this actor. Override this method in subclasses of <code>Actor</code> to define types of actors with different behavior
      */
     public void act() {
-        setDirection(getDirection() + Location.HALF_CIRCLE);
+        setDirection(getDirection() + Location.TURNANGLE.HALFCIRCLE.getValue());
     }
 
     /**

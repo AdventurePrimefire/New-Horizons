@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import world.actors.Actor;
 
 /**
- * <code>AbstractGrid</code> contains the methods that are common to grid
- * implementations. <br />
+ * <code>AbstractGrid</code> contains the methods that are common to grid implementations. <br />
  * The implementation of this class is testable on the AP CS AB exam.
  */
 public abstract class AbstractGrid<E extends Actor> implements Grid<E> {
@@ -34,22 +33,22 @@ public abstract class AbstractGrid<E extends Actor> implements Grid<E> {
         }
         return neighbors;
     }
-    
+
     @Override
     public ArrayList<Location> getValidAdjacentLocations(Location loc) {
         ArrayList<Location> locs = new ArrayList<Location>();
-        
-        int d = Location.NORTH;// change so it only gets the cardnal directions
-        for (int i = 0; i < Location.FULL_CIRCLE / Location.RIGHT; i++) {
+
+        int d = Location.FACING.NORTH.getValue();// change so it only gets the cardnal directions
+        for (int i = 0; i < Location.TURNANGLE.FULLCIRCLE.getValue() / Location.TURNANGLE.RIGHT.getValue(); i++) {
             Location neighborLoc = loc.getAdjacentLocation(d);
             if (isValid(neighborLoc)) {
                 locs.add(neighborLoc);
             }
-            d = d + Location.RIGHT;
+            d = d + Location.TURNANGLE.RIGHT.getValue();
         }
         return locs;
     }
-    
+
     @Override
     public ArrayList<Location> getEmptyAdjacentLocations(Location loc) {
         ArrayList<Location> locs = new ArrayList<Location>();
@@ -60,7 +59,7 @@ public abstract class AbstractGrid<E extends Actor> implements Grid<E> {
         }
         return locs;
     }
-    
+
     @Override
     public ArrayList<Location> getOccupiedAdjacentLocations(Location loc) {
         ArrayList<Location> locs = new ArrayList<Location>();
@@ -71,13 +70,11 @@ public abstract class AbstractGrid<E extends Actor> implements Grid<E> {
         }
         return locs;
     }
-    
+
     /**
      * Creates a string that describes this grid.
      *
-     * @return a string with descriptions of all objects in this grid (not
-     *         necessarily in any particular order), in the format {loc=obj,
-     *         loc=obj, ...}
+     * @return a string with descriptions of all objects in this grid (not necessarily in any particular order), in the format {loc=obj, loc=obj, ...}
      */
     @Override
     public String toString() {

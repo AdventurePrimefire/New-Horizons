@@ -21,14 +21,13 @@
 package world.grid;
 
 /**
- * A <code>Location</code> object represents the row and column of a location in
- * a two-dimensional grid. <br />
+ * A <code>Location</code> object represents the row and column of a location in a two-dimensional grid. <br />
  * The API of this class is testable on the AP CS A and AB exams.
  */
 public class Location implements Comparable {
     private int row; // row location in grid
     private int col; // column location in grid
-    
+
     public enum FACING {
         NORTH {
             @Override
@@ -56,7 +55,7 @@ public class Location implements Comparable {
         };
         public abstract int getValue();
     }
-
+    
     public enum TURNANGLE {
         AHEAD {
             @Override
@@ -83,16 +82,16 @@ public class Location implements Comparable {
             }
         },
         FULLCIRCLE {
-            
+
             @Override
             public int getValue() {
                 return 360;
             }
-
+            
         };
         public abstract int getValue();
     }
-
+    
     /**
      * Constructs a location with given row and column coordinates.
      *
@@ -105,7 +104,7 @@ public class Location implements Comparable {
         row = r;
         col = c;
     }
-    
+
     /**
      * Gets the row coordinate.
      *
@@ -114,7 +113,7 @@ public class Location implements Comparable {
     public int getRow() {
         return row;
     }
-    
+
     /**
      * Gets the column coordinate.
      *
@@ -123,14 +122,13 @@ public class Location implements Comparable {
     public int getCol() {
         return col;
     }
-    
+
     /**
      * Gets the adjacent location in any one of the eight compass directions.
      *
      * @param direction
      *            the direction in which to find a neighbor location
-     * @return the adjacent location in the direction that is closest to
-     *         <tt>direction</tt>
+     * @return the adjacent location in the direction that is closest to <tt>direction</tt>
      */
     public Location getAdjacentLocation(int direction) {
         // reduce mod 360 and round to closest multiple of 45
@@ -138,7 +136,7 @@ public class Location implements Comparable {
         if (adjustedDirection < 0) {
             adjustedDirection += TURNANGLE.FULLCIRCLE.getValue();
         }
-        
+
         adjustedDirection = adjustedDirection / TURNANGLE.RIGHT.getValue() * TURNANGLE.RIGHT.getValue();
         int dc = 0;
         int dr = 0;
@@ -153,55 +151,50 @@ public class Location implements Comparable {
         }
         return new Location(getRow() + dr, getCol() + dc);
     }
-    
+
     /**
-     * Returns the direction from this location toward another location. The
-     * direction is rounded to the nearest compass direction.
+     * Returns the direction from this location toward another location. The direction is rounded to the nearest compass direction.
      *
      * @param target
      *            a location that is different from this location
-     * @return the closest compass direction from this location toward
-     *         <code>target</code>
+     * @return the closest compass direction from this location toward <code>target</code>
      */
     public int getDirectionToward(Location target) {
         int dx = target.getCol() - getCol();
         int dy = target.getRow() - getRow();
         // y axis points opposite to mathematical orientation
         int angle = (int) Math.toDegrees(Math.atan2(-dy, dx));
-        
+
         // mathematical angle is counterclockwise from x-axis,
         // compass angle is clockwise from y-axis
-        int compassAngle = RIGHT - angle;
+        int compassAngle = TURNANGLE.RIGHT.getValue() - angle;
         // prepare for truncating division by 45 degrees
-        compassAngle += HALF_RIGHT / 2;
+        compassAngle += TURNANGLE.RIGHT.getValue() / 2;
         // wrap negative angles
         if (compassAngle < 0) {
-            compassAngle += FULL_CIRCLE;
+            compassAngle += TURNANGLE.FULLCIRCLE.getValue();
         }
         // round to nearest multiple of 45
-        return compassAngle / HALF_RIGHT * HALF_RIGHT;
+        return compassAngle / TURNANGLE.RIGHT.getValue() * TURNANGLE.RIGHT.getValue();
     }
-    
+
     /**
-     * Indicates whether some other <code>Location</code> object is "equal to"
-     * this one.
+     * Indicates whether some other <code>Location</code> object is "equal to" this one.
      *
      * @param other
      *            the other location to test
-     * @return <code>true</code> if <code>other</code> is a
-     *         <code>Location</code> with the same row and column as this
-     *         location; <code>false</code> otherwise
+     * @return <code>true</code> if <code>other</code> is a <code>Location</code> with the same row and column as this location; <code>false</code> otherwise
      */
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Location)) {
             return false;
         }
-        
+
         Location otherLoc = (Location) other;
         return getRow() == otherLoc.getRow() && getCol() == otherLoc.getCol();
     }
-    
+
     /**
      * Generates a hash code.
      *
@@ -211,20 +204,14 @@ public class Location implements Comparable {
     public int hashCode() {
         return getRow() * 3737 + getCol();
     }
-    
+
     /**
-     * Compares this location to <code>other</code> for ordering. Returns a
-     * negative integer, zero, or a positive integer as this location is less
-     * than, equal to, or greater than <code>other</code>. Locations are ordered
-     * in row-major order. <br />
+     * Compares this location to <code>other</code> for ordering. Returns a negative integer, zero, or a positive integer as this location is less than, equal to, or greater than <code>other</code>. Locations are ordered in row-major order. <br />
      * (Precondition: <code>other</code> is a <code>Location</code> object.)
      *
      * @param other
      *            the other location to test
-     * @return a negative integer if this location is less than
-     *         <code>other</code>, zero if the two locations are equal, or a
-     *         positive integer if this location is greater than
-     *         <code>other</code>
+     * @return a negative integer if this location is less than <code>other</code>, zero if the two locations are equal, or a positive integer if this location is greater than <code>other</code>
      */
     @Override
     public int compareTo(Object other) {
@@ -243,12 +230,11 @@ public class Location implements Comparable {
         }
         return 0;
     }
-    
+
     /**
      * Creates a string that describes this location.
      *
-     * @return a string with the row and column of this location, in the format
-     *         (row, col)
+     * @return a string with the row and column of this location, in the format (row, col)
      */
     @Override
     public String toString() {
