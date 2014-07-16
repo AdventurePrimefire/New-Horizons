@@ -1,7 +1,10 @@
+/character
+/chatroom
 /display
+/file
 /frame
 /main
-/loaders
 /menus
 /panel
-/window
+/world
+/characterPanel

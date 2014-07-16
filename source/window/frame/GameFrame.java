@@ -19,7 +19,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import panel.CharacterPanel;
+import panel.characterPanel.CharacterPanel;
 import character.CharacterFactory;
 
 @SuppressWarnings("serial")
@@ -91,7 +91,7 @@ public class GameFrame extends JFrame {
 
         JSeparator separator = new JSeparator();
         menuBar.add(separator);
-        
+
         JButton btnCloseCurrentTab = new JButton("Close Current Tab");
         menuBar.add(btnCloseCurrentTab);
         btnCloseCurrentTab.addActionListener(new ActionListener() {
