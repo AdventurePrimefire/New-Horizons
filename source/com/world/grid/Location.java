@@ -22,8 +22,6 @@ package world.grid;
 
 import java.util.Comparator;
 
-import world.actors.Actor;
-
 /**
  * A <code>Location</code> object represents the row and column of a location in a two-dimensional grid. <br />
  * The API of this class is testable on the AP CS A and AB exams.
@@ -32,8 +30,7 @@ public class Location {
     private int row; // row location in grid
     private int col; // column location in grid
     private MapLayer layer;
-    private Actor actor;
-
+    
     public enum FACING {
         NORTH {
             @Override
@@ -61,7 +58,7 @@ public class Location {
         };
         public abstract int getValue();
     }
-
+    
     public enum TURNANGLE {
         AHEAD {
             @Override
@@ -88,41 +85,40 @@ public class Location {
             }
         },
         FULLCIRCLE {
-
+            
             @Override
             public int getValue() {
                 return 360;
             }
-
+            
         };
         public abstract int getValue();
     }
-
-    public Location(int row, int col, MapLayer layer, Actor actor) {
+    
+    public Location(int row, int col, MapLayer layer) {
         this.row = row;
         this.col = col;
         this.layer = layer;
-        this.actor = actor;
     }
-
+    
     public Location() {
         this.row = 0;
         this.col = 0;
         this.layer = null;
     }
-
+    
     public int getRow() {
         return this.row;
     }
-
+    
     public int getCol() {
         return this.col;
     }
-
+    
     public MapLayer getLayer() {
         return this.layer;
     }
-
+    
     public class LocComp implements Comparator<Location> {
         @Override
         public int compare(Location loc1, Location loc2) {
@@ -145,16 +141,19 @@ public class Location {
                             return 0;
                         default:
                             return 0;
-
+                            
                     }
                 }
-
             }
         }
     }
-
+    
     public Comparator<? super Location> newLocComp() {
         return new LocComp();
     }
-
+    
+    @Override
+    public String toString() {
+        return this.row + "," + this.col + "," + this.layer;
+    }
 }

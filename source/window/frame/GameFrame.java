@@ -20,6 +20,7 @@ import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import panel.characterPanel.CharacterPanel;
+import world.grid.GridPanel;
 import character.CharacterFactory;
 
 @SuppressWarnings("serial")
@@ -112,7 +113,9 @@ public class GameFrame extends JFrame {
         welcomeText.setText("This is the welcome screen for Dungeon Hero.  Later more will be added.");
         Welcome.add(welcomeText);
 
+        GridPanel gridPanel = new GridPanel();
+        this.tabbedPane.addTab("Grid", null, gridPanel, null);
+
         this.repaint();
-        ;
     }
 }

@@ -1,29 +1,37 @@
 package world.grid;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 
 import world.actors.Actor;
 
 public class Grid {
-    int hight;
-    int width;
+    int rows;
+    int cols;
     TreeMap<Location, Actor> locations;
 
     public Grid() {
-        this.hight = 10;
-        this.width = 10;
+        this.rows = 9;
+        this.cols = 9;
         Location loc = new Location();
         this.locations = new TreeMap<Location, Actor>(loc.newLocComp());
     }
 
-    public Actor putInGrid(Location loc, Actor actor) {
+    public Actor putInGrid(Actor actor) {
+        Location loc = actor.getLocation();
+        if (loc.getRow() < 0 || loc.getCol() < 0) {
+            return null;
+        }
         Actor oldAct = null;
         if (this.locations.containsKey(loc)) {// if location allready exists
             oldAct = this.locations.get(loc);
             this.locations.replace(loc, actor);
             return oldAct;
+        } else if (loc.getRow() <= this.rows) {
+            if (loc.getCol() <= this.cols) {
+                this.locations.put(loc, actor);
+            }
         }
-        this.locations.put(loc, actor);
         return oldAct;
     }
 
@@ -35,6 +43,20 @@ public class Grid {
     }
 
     public Actor cheekLocation(Location loc) {
-        return this.locations.get(loc);
+        if (this.locations.containsKey(loc)) {
+            return this.locations.get(loc);
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        String out = "Grid{";
+        Iterator<Location> keys = this.locations.keySet().iterator();
+        while (keys.hasNext()) {
+            Location loc = keys.next();
+            out += this.locations.get(loc).toString();
+        }
+        return out + "}";
     }
 }
