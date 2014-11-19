@@ -14,13 +14,13 @@ import org.xml.sax.SAXException;
 
 class CharacterReader {
 
-static Element read(File file) throws SAXException, IOException, ParserConfigurationException{
-    DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
+    static Element read(File file) throws SAXException, IOException, ParserConfigurationException {
+        DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dFactory.newDocumentBuilder();
         Document document = dBuilder.parse(file);
         document.normalize();
         NodeList root = document.getElementsByTagName("CharacterSheet");
         Element loadedCharacter = (Element) document.getFirstChild();
         return loadedCharacter;
-}
+    }
 }

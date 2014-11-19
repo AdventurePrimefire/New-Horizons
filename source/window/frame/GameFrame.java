@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTabbedPane;
@@ -20,15 +19,17 @@ import javax.swing.JTextPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import panel.characterPanel.CharacterPanel;
-import panel.grid.GridPanel;
-import character.CharacterFactory;
+import character.CharacterSheet;
+import devKit.DevKit;
 
 @SuppressWarnings("serial")
 public class GameFrame extends JFrame {
     private JTabbedPane tabbedPane;
+    private DevKit devKit = new DevKit(this);
     
     public GameFrame() {
         super();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         this.setSize(500, 600);
         
@@ -45,9 +46,8 @@ public class GameFrame extends JFrame {
         mntmNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                String name = JOptionPane.showInputDialog(getContentPane(), "What is your name?", null);
-                CharacterFactory cf = new CharacterFactory();
-                tabbedPane.addTab(name, null, new CharacterPanel(cf.newInstance(name)), null);
+                CharacterSheet c = WindowUtil.createSheet();
+                tabbedPane.addTab(c.getName(), null, new CharacterPanel(c), null);
             }
         });
         mnCharacter.add(mntmNew);
@@ -90,6 +90,31 @@ public class GameFrame extends JFrame {
         JMenu mnSettings = new JMenu("Settings");
         menuBar.add(mnSettings);
         
+        JMenuItem mntmRepack = new JMenuItem("Repack");
+        mntmRepack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                pack();
+            }
+        });
+        mnSettings.add(mntmRepack);
+        
+        JMenu mnDev = new JMenu("Dev");
+        menuBar.add(mnDev);
+        
+        JMenuItem chckbxmntmEnabled = new JMenuItem("Toggle");
+        chckbxmntmEnabled.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                if (devKit.isVisible() == true) {
+                    devKit.setVisible(false);
+                    return;
+                }
+                devKit.setVisible(true);
+            }
+        });
+        mnDev.add(chckbxmntmEnabled);
+        
         JSeparator separator = new JSeparator();
         menuBar.add(separator);
         
@@ -113,9 +138,17 @@ public class GameFrame extends JFrame {
         welcomeText.setText("This is the welcome screen for Dungeon Hero.  Later more will be added.");
         Welcome.add(welcomeText);
         
-        GridPanel gridPanel = new GridPanel();
-        this.tabbedPane.addTab("Grid", null, gridPanel, null);
-        
         this.repaint();
+    }
+    
+    public JTabbedPane getTabbedPane() {
+        return this.tabbedPane;
+    }
+    
+    @Override
+    public void dispose() {
+        super.dispose();
+        this.devKit.dispose();
+        System.exit(0);
     }
 }

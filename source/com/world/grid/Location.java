@@ -101,9 +101,9 @@ public class Location {
         this.layer = layer;
     }
     
-    public Location() {
-        this.row = 0;
-        this.col = 0;
+    public Location(int row, int col) {
+        this.row = row;
+        this.col = col;
         this.layer = null;
     }
     
