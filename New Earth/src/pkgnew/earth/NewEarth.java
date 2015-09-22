@@ -16,10 +16,10 @@ import dungoenCharachter.mobs.Goblin;
 public class NewEarth {
 
     public static void main(String[] args){
-//        CombatSimulator combat = new CombatSimulator( new Goblin(), new Troll());
-//        while(combat.checkVictory() == null){
-//            combat.runCombatStep();
-//        }
-//        System.out.println(combat.checkVictory().getName());
+        CombatSimulator combat = new CombatSimulator( new Goblin(), new Troll());
+        while(combat.checkVictory() == null){
+            combat.runCombatStep();
+       }
+        System.out.println(combat.checkVictory().getName());
     }
 }
